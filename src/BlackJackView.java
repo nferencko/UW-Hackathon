@@ -7,8 +7,15 @@ public class BlackJackView extends JFrame {
     // Colors and fonts used in the GUI
     private final Color TABLE_GREEN = new Color(0, 122, 50);
     private final Color DARKER_GREEN = new Color(0, 100, 40);
+    private final Color SLATE_GRAY = new Color(45, 45, 45); // button color
     private final Font LABEL_FONT = new Font("Arial", Font.BOLD, 14);
     private final Font STATUS_FONT = new Font("Arial", Font.BOLD, 18);
+    private final Color LABEL_COLOR = Color.WHITE;
+
+    // Alternate Table Colors in Honor of Knicks
+    private final Color KNICKS_BLUE = new Color(0,107,182);
+    private final Color KNICKS_ORANGE = new Color(245,132,38);
+    private final Color KNICKS_SILVER = new Color(35, 31, 32);
 
     // Labels for game state
     private JLabel playerStatsLabel;
@@ -50,8 +57,8 @@ public class BlackJackView extends JFrame {
         playerCardPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 5, 5));
 
 
-        dealerCardPanel.setBackground(TABLE_GREEN);
-        playerCardPanel.setBackground(TABLE_GREEN);
+        dealerCardPanel.setBackground(KNICKS_BLUE);
+        playerCardPanel.setBackground(KNICKS_BLUE);
 
         hitButton = new JButton("Hit");
         standButton = new JButton("Stand");
@@ -61,11 +68,11 @@ public class BlackJackView extends JFrame {
 
     private void layoutComponents() {
 
-        // Set text to white so it's readable on a green background
-        dealerScoreLabel.setForeground(Color.WHITE);
-        playerScoreLabel.setForeground(Color.WHITE);
-        playerStatsLabel.setForeground(Color.WHITE);
-        gameStatusLabel.setForeground(Color.WHITE);
+        // Set text color of all labels
+        dealerScoreLabel.setForeground(LABEL_COLOR);
+        playerScoreLabel.setForeground(LABEL_COLOR);
+        playerStatsLabel.setForeground(LABEL_COLOR);
+        gameStatusLabel.setForeground(LABEL_COLOR);
 
         // Set the fonts for all the labels
         dealerScoreLabel.setFont(LABEL_FONT);
@@ -76,20 +83,20 @@ public class BlackJackView extends JFrame {
 
         // Top Region: Dealer Area
         JPanel dealerArea = new JPanel(new BorderLayout());
-        dealerArea.setBackground(TABLE_GREEN); // Set the container panel green
+        dealerArea.setBackground(KNICKS_BLUE); // Set the container panel green
         dealerArea.add(dealerScoreLabel, BorderLayout.NORTH);
         dealerArea.add(dealerCardPanel, BorderLayout.CENTER);
         add(dealerArea, BorderLayout.NORTH);
 
         // Center Region: Status and Player Area (Using your original layout)
         JPanel centerArea = new JPanel(new GridLayout(2, 1));
-        centerArea.setBackground(DARKER_GREEN); // Set the main grid container green
+        centerArea.setBackground(KNICKS_ORANGE); // Set the main grid container green
 
         gameStatusLabel.setOpaque(false); // Keeps background transparent to show panel green
         centerArea.add(gameStatusLabel);
 
         JPanel playerArea = new JPanel(new BorderLayout());
-        playerArea.setBackground(TABLE_GREEN); // Set the player's inner container green
+        playerArea.setBackground(KNICKS_BLUE); // Set the player's inner container green
         playerArea.add(playerStatsLabel, BorderLayout.NORTH);
         playerArea.add(playerCardPanel, BorderLayout.CENTER);
         playerArea.add(playerScoreLabel, BorderLayout.SOUTH);
@@ -99,7 +106,7 @@ public class BlackJackView extends JFrame {
 
         // Bottom Area: Controls
         JPanel controlsPanel = new JPanel();
-        controlsPanel.setBackground(new Color(45, 45, 45)); // Slate/matte black border style
+        controlsPanel.setBackground( KNICKS_SILVER );
 
         controlsPanel.add(dealButton);
         controlsPanel.add(hitButton);

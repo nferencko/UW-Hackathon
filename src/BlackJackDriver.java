@@ -11,14 +11,14 @@ public class BlackJackDriver {
             @Override
             public void run() {
 
-                // Initialize the game models using default player and dealer
+                // Initialize the game models using default player and
                 Player player = new Player();
                 Dealer dealer = new Dealer();
 
                 // Initialize the GUI view window
                 BlackJackView view = new BlackJackView();
 
-                // 3. Initialize the controller to link the models and the view
+                // Initialize the controller to link the models and the view
                 // The controller constructor will automatically wire up the button listeners
                 new BlackJackController(view, player, dealer);
             }
