@@ -48,7 +48,7 @@ public class Player {
     }
 
     public boolean setBet(double theBet){
-        if( theBet > myBalance){
+        if( theBet > myBalance || theBet <= 0){
             return false;
         }
 

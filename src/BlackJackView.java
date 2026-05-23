@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 public class BlackJackView extends JFrame {
 
+    public enum ColorScheme {STANDARD, KNICKS};
+
     // Colors and fonts used in the GUI
     private final Color TABLE_GREEN = new Color(0, 122, 50);
     private final Color DARKER_GREEN = new Color(0, 100, 40);
@@ -32,6 +34,7 @@ public class BlackJackView extends JFrame {
     private JButton standButton;
     private JButton doubleButton;
     private JButton dealButton;
+
 
     /** Create the BlackJack View */
     public BlackJackView() {
@@ -83,20 +86,20 @@ public class BlackJackView extends JFrame {
 
         // Top Region: Dealer Area
         JPanel dealerArea = new JPanel(new BorderLayout());
-        dealerArea.setBackground(KNICKS_BLUE); // Set the container panel green
+        dealerArea.setBackground(KNICKS_BLUE);
         dealerArea.add(dealerScoreLabel, BorderLayout.NORTH);
         dealerArea.add(dealerCardPanel, BorderLayout.CENTER);
         add(dealerArea, BorderLayout.NORTH);
 
         // Center Region: Status and Player Area (Using your original layout)
         JPanel centerArea = new JPanel(new GridLayout(2, 1));
-        centerArea.setBackground(KNICKS_ORANGE); // Set the main grid container green
+        centerArea.setBackground(KNICKS_ORANGE);
 
-        gameStatusLabel.setOpaque(false); // Keeps background transparent to show panel green
+        gameStatusLabel.setOpaque(false);
         centerArea.add(gameStatusLabel);
 
         JPanel playerArea = new JPanel(new BorderLayout());
-        playerArea.setBackground(KNICKS_BLUE); // Set the player's inner container green
+        playerArea.setBackground(KNICKS_BLUE);
         playerArea.add(playerStatsLabel, BorderLayout.NORTH);
         playerArea.add(playerCardPanel, BorderLayout.CENTER);
         playerArea.add(playerScoreLabel, BorderLayout.SOUTH);

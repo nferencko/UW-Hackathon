@@ -78,14 +78,6 @@ public class DeckOfCards
     }
 
 
-
-
-
-
-
-
-
-
     public static void main(String[] args)
     {
         DeckOfCards d = new DeckOfCards();

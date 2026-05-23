@@ -14,7 +14,7 @@ public class BlackJackHand
      */
     public BlackJackHand()
     {
-        this.hand = new ArrayList();
+        this.hand = new ArrayList<>();
     }
 
     /**
@@ -61,7 +61,7 @@ public class BlackJackHand
             {
                 hasAce = true;
             }
-            value = value + cardValue;
+            value += cardValue;
         }
         // If we have an ace, check if it should be counted as an 11
         if(hasAce == true && value+10<=21)

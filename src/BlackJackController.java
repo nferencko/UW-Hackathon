@@ -40,7 +40,7 @@ public class BlackJackController {
         try {
             double bet = Double.parseDouble(betStr);
             if (!player.setBet(bet)) {
-                JOptionPane.showMessageDialog(view, "Insufficient balance!", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(view, "Invalid Bet Amount!", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
         } catch (NumberFormatException e) {
@@ -59,7 +59,7 @@ public class BlackJackController {
         // over and update the view.
         if( !checkForBlackJack()){
             view.setTurnState(true);
-            view.setGameStatus("Your turn. Hit or Stand?");
+            view.setGameStatus("Your turn. Hit, Stand, or Double Down?");
             updateView(false); // keep dealer card hidden
         }
         else{
@@ -78,6 +78,7 @@ public class BlackJackController {
         } else {
             updateView(false);
         }
+        // Once player hits, they can no longer double down
         this.view.getDoubleButton().setEnabled(false);
     }
 
