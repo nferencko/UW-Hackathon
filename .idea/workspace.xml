@@ -5,15 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="dbe1dbcf-c7a4-491e-9e70-ce5ad06d6009" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/BlackJackController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/BlackJackDriver.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/BlackJackHand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/BlackJackView.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Dealer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/DeckOfCards.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Player.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlackJack.iml" beforeDir="false" afterPath="$PROJECT_DIR$/BlackJack.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/BlackJackController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BlackJackController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/BlackJackDriver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BlackJackDriver.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/BlackJackHand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BlackJackHand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/BlackJackView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BlackJackView.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Card.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Card.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -65,6 +61,11 @@
     "project.structure.side.proportion": "0.0"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\13609\Documents\CS343\BlackJack" />
+    </key>
+  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="dbe1dbcf-c7a4-491e-9e70-ce5ad06d6009" name="Changes" comment="" />

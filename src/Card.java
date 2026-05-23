@@ -1,3 +1,7 @@
+import javax.swing.ImageIcon;
+import java.net.URL;
+
+
 /**
  * This class models a single playing card from a standard deck. Cards have one of four
  * suits(0-3), and a rank(ace = 1, king = 13).
@@ -97,5 +101,24 @@ public class Card {
         }
 
         return "[" + valueString + "-" + suitString + "]";
+    }
+
+
+
+    /**
+     * Loads and returns the graphical ImageIcon representing this card.
+     * @return ImageIcon of the card face.
+     */
+    public ImageIcon getImageIcon() {
+        String filename = "images/" + this.rank + "_" + this.suit + ".png";
+        return new ImageIcon(filename);
+    }
+
+    /**
+     * Loads and returns the back face of a card.
+     * @return ImageIcon of the card back.
+     */
+    public static ImageIcon getBackImageIcon() {
+        return new ImageIcon("images/back_0.png");
     }
 }

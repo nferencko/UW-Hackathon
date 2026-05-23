@@ -1,7 +1,15 @@
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class BlackJackView extends JFrame {
+
+    // Colors and fonts used in the GUI
+    private final Color TABLE_GREEN = new Color(0, 122, 50);
+    private final Color DARKER_GREEN = new Color(0, 100, 40);
+    private final Font LABEL_FONT = new Font("Arial", Font.BOLD, 14);
+    private final Font STATUS_FONT = new Font("Arial", Font.BOLD, 18);
+
     // Labels for game state
     private JLabel playerStatsLabel;
     private JLabel gameStatusLabel;
@@ -18,6 +26,7 @@ public class BlackJackView extends JFrame {
     private JButton doubleButton;
     private JButton dealButton;
 
+    /** Create the BlackJack View */
     public BlackJackView() {
         setTitle("Blackjack");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -36,8 +45,13 @@ public class BlackJackView extends JFrame {
         dealerScoreLabel = new JLabel("Dealer: ");
         playerScoreLabel = new JLabel("Player: ");
 
-        dealerCardPanel = new JPanel();
-        playerCardPanel = new JPanel();
+        // Using FlowLayout ensures images align in a horizontal row
+        dealerCardPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 5, 5));
+        playerCardPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 5, 5));
+
+
+        dealerCardPanel.setBackground(TABLE_GREEN);
+        playerCardPanel.setBackground(TABLE_GREEN);
 
         hitButton = new JButton("Hit");
         standButton = new JButton("Stand");
@@ -46,26 +60,47 @@ public class BlackJackView extends JFrame {
     }
 
     private void layoutComponents() {
-        // Top: Dealer Area
+
+        // Set text to white so it's readable on a green background
+        dealerScoreLabel.setForeground(Color.WHITE);
+        playerScoreLabel.setForeground(Color.WHITE);
+        playerStatsLabel.setForeground(Color.WHITE);
+        gameStatusLabel.setForeground(Color.WHITE);
+
+        // Set the fonts for all the labels
+        dealerScoreLabel.setFont(LABEL_FONT);
+        playerScoreLabel.setFont(LABEL_FONT);
+        playerStatsLabel.setFont(LABEL_FONT);
+
+        gameStatusLabel.setFont(STATUS_FONT);
+
+        // Top Region: Dealer Area
         JPanel dealerArea = new JPanel(new BorderLayout());
+        dealerArea.setBackground(TABLE_GREEN); // Set the container panel green
         dealerArea.add(dealerScoreLabel, BorderLayout.NORTH);
         dealerArea.add(dealerCardPanel, BorderLayout.CENTER);
         add(dealerArea, BorderLayout.NORTH);
 
-        // Center: Status and Player Area
+        // Center Region: Status and Player Area (Using your original layout)
         JPanel centerArea = new JPanel(new GridLayout(2, 1));
+        centerArea.setBackground(DARKER_GREEN); // Set the main grid container green
+
+        gameStatusLabel.setOpaque(false); // Keeps background transparent to show panel green
         centerArea.add(gameStatusLabel);
 
         JPanel playerArea = new JPanel(new BorderLayout());
+        playerArea.setBackground(TABLE_GREEN); // Set the player's inner container green
         playerArea.add(playerStatsLabel, BorderLayout.NORTH);
         playerArea.add(playerCardPanel, BorderLayout.CENTER);
         playerArea.add(playerScoreLabel, BorderLayout.SOUTH);
-        centerArea.add(playerArea);
 
+        centerArea.add(playerArea);
         add(centerArea, BorderLayout.CENTER);
 
-        // Bottom: Controls
+        // Bottom Area: Controls
         JPanel controlsPanel = new JPanel();
+        controlsPanel.setBackground(new Color(45, 45, 45)); // Slate/matte black border style
+
         controlsPanel.add(dealButton);
         controlsPanel.add(hitButton);
         controlsPanel.add(standButton);
@@ -79,31 +114,55 @@ public class BlackJackView extends JFrame {
     public JButton getDoubleButton() { return doubleButton; }
     public JButton getDealButton() { return dealButton; }
 
-    // Methods for the Controller to update the View
-    public void updatePlayerCards(String cardsStr) {
+    // Updates the player's card images
+    public void updatePlayerCards(ArrayList<Card> cards) {
         playerCardPanel.removeAll();
-        // For simple text, add labels. If you upgrade to image icons later, add images here.
-        playerCardPanel.add(new JLabel(cardsStr));
+        for (Card card : cards) {
+            JLabel cardLabel = new JLabel(card.getImageIcon());
+            playerCardPanel.add(cardLabel);
+        }
         playerCardPanel.revalidate();
         playerCardPanel.repaint();
     }
 
-    public void updateDealerCards(String cardsStr) {
+    // Updates the dealer's card images, with a toggle to hide the first card
+    public void updateDealerCards(ArrayList<Card> cards, boolean revealDealer) {
         dealerCardPanel.removeAll();
-        dealerCardPanel.add(new JLabel(cardsStr));
+
+        for (int i = 0; i < cards.size(); i++) {
+            JLabel cardLabel;
+            if (i == 0 && !revealDealer) {
+                // Display the card back image for the dealer's hidden card
+                cardLabel = new JLabel(Card.getBackImageIcon());
+            } else {
+                cardLabel = new JLabel(cards.get(i).getImageIcon());
+            }
+            dealerCardPanel.add(cardLabel);
+        }
         dealerCardPanel.revalidate();
         dealerCardPanel.repaint();
     }
 
-    public void setGameStatus(String message) { gameStatusLabel.setText(message); }
+    /** Set the game status */
+    public void setGameStatus(String message) {
+        gameStatusLabel.setText(message);
+    }
+
+    /** Set the Player Stats */
     public void setPlayerStats(double balance, double bet) {
         playerStatsLabel.setText("Balance: $" + balance + " | Bet: $" + bet);
     }
+
+    /** Set the scores */
     public void setScores(String dealerScore, int playerScore) {
         dealerScoreLabel.setText("Dealer: " + dealerScore);
         playerScoreLabel.setText("Player: " + playerScore);
     }
 
+    /**
+     * Enable/Disable buttons based on inGame.
+     * @param inGame true if the game is still active, false if game is over.
+     */
     public void setTurnState(boolean inGame) {
         hitButton.setEnabled(inGame);
         standButton.setEnabled(inGame);

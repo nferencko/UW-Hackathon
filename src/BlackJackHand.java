@@ -117,6 +117,13 @@ public class BlackJackHand
         return s;
     }
 
+    /**
+     * @return The list of cards currently in this hand.
+     */
+    public ArrayList<Card> getCards() {
+        return this.hand;
+    }
+
 
 
     // Tester for this class

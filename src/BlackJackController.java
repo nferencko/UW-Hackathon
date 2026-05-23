@@ -1,6 +1,8 @@
 import javax.swing.JOptionPane;
 
+/** Controller for the BlackJack game */
 public class BlackJackController {
+
     private BlackJackView view;
     private DeckOfCards deck;
     private Player player;
@@ -12,7 +14,7 @@ public class BlackJackController {
         this.dealer = dealer;
         this.deck = new DeckOfCards();
 
-        // Attach event listeners
+        // Attach event listeners to the buttons
         this.view.getDealButton().addActionListener(e -> startNewHand());
         this.view.getHitButton().addActionListener(e -> playerHit());
         this.view.getStandButton().addActionListener(e -> playerStand());
@@ -25,15 +27,14 @@ public class BlackJackController {
 
     private void startNewHand() {
 
-        // Setup models
+        // Setup models for a new game
         deck.shuffle();
         player.resetPlayer();
         dealer.resetDealer();
-        // Notice: Your Player/Dealer classes instantiate new BlackJackHands inside constructors,
-        // but to reset them perfectly per hand, you'll need to call player.resetPlayer()
-        // and adjust Dealer to have a reset method, or instantiate new Player/Dealer objects.
 
-        String betStr = JOptionPane.showInputDialog(view, "Enter your bet:", "Place Bet", JOptionPane.QUESTION_MESSAGE);
+        String betStr = JOptionPane.showInputDialog(view, "Enter your bet:",
+                "Place Bet", JOptionPane.QUESTION_MESSAGE);
+
         if (betStr == null) return;
 
         try {
@@ -47,19 +48,15 @@ public class BlackJackController {
             return;
         }
 
-        System.out.println(player);
 
-
-        // End of testing methods
-
-        // Deal initial cards
+        // Deal initial cards to player and dealer
         player.hit(deck.takeCard());
         dealer.hit(deck.takeCard());
         player.hit(deck.takeCard());
         dealer.hit(deck.takeCard());
 
-        // checkForBlackJack();
-
+        // If nobody has BlackJack, player can choose to hit or stand, otherwise game is
+        // over and update the view.
         if( !checkForBlackJack()){
             view.setTurnState(true);
             view.setGameStatus("Your turn. Hit or Stand?");
@@ -72,6 +69,7 @@ public class BlackJackController {
 
     }
 
+    // Action when Player chooses to Hit
     private void playerHit() {
         player.hit(deck.takeCard());
         if (player.isBust()) {
@@ -83,15 +81,18 @@ public class BlackJackController {
         this.view.getDoubleButton().setEnabled(false);
     }
 
+    // Action when player chooses to stand
     private void playerStand() {
         view.setTurnState(false);
-        // Dealer logic loop
+
+        // Dealer takes cards as prescribed by canHit method
         while (dealer.canHit()) {
             dealer.hit(deck.takeCard());
         }
         determineWinner();
     }
 
+    // Action when player chooses to double down
     private void playerDoubleDown() {
         if (player.doubleDown()) {
             player.hit(deck.takeCard());
@@ -116,17 +117,17 @@ public class BlackJackController {
         boolean isBlackJack = false;
 
         if(player.hasBlackJack() && dealer.hasBlackJack()){
-            view.setGameStatus("Push! Both dealer and player have blackjack");
+            view.setGameStatus("Push! You and the dealer both have BlackJack.");
             endHand(1.0);
             isBlackJack = true;
         }
         else if(player.hasBlackJack()){
-            view.setGameStatus("You have blackjack!");
+            view.setGameStatus("You have BlackJack!");
             endHand(2.5);
             isBlackJack = true;
         }
         else if(dealer.hasBlackJack()){
-            view.setGameStatus("Dealer has blackjack.");
+            view.setGameStatus("Dealer has BlackJack.");
             endHand(0.0);
             isBlackJack = true;
         }
@@ -153,6 +154,7 @@ public class BlackJackController {
         }
     }
 
+    // when game is over, update balances
     private void endHand(double payoutMultiplier) {
         view.setTurnState(false);
         // Assuming you track current bet to calculate payout increment
@@ -162,17 +164,17 @@ public class BlackJackController {
     }
 
     private void updateView(boolean revealDealer) {
-        view.setPlayerStats(player.getBalance(), player.getBet()); // Update with actual bet tracking variable
-        view.updatePlayerCards(player.getHand().toString());
+
+        view.setPlayerStats(player.getBalance(), player.getBet());
+
+        // Pass the actual card lists rather than strings
+        view.updatePlayerCards(player.getHand().getCards());
+
         view.setScores(
                 revealDealer ? String.valueOf(dealer.getHand().getValue()) : "??",
                 player.getHand().getValue()
         );
 
-        if (revealDealer) {
-            view.updateDealerCards(dealer.getHand().toString());
-        } else {
-            view.updateDealerCards(dealer.getHand().dealerView());
-        }
+        view.updateDealerCards(dealer.getHand().getCards(), revealDealer);
     }
 }
